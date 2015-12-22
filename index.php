@@ -1531,7 +1531,7 @@ if ($cmd=="vm_c") {
 	$q = "select * from vm_cluster order by name";
 	$rr = mysql_query($q);
 	echo "<table border=1 cellspacing=0>";
-	echo " <tr><th>序号</th><th>名称</th><th>管理IP</th><th>成员</th><th>备注</th>";
+	echo " <tr><th>序号</th><th>名称</th><th>管理IP</th><th>成员</th><th>虚拟机</th><th>备注</th>";
 	echo "</tr>";
 	$count = 0;
 	while ($r=mysql_fetch_row($rr)){
@@ -1550,6 +1550,18 @@ if ($cmd=="vm_c") {
 			if (getuserright("vm")>=3) 
 				echo "<a href=index.php?cmd=vm_c&id=$r[0]&vmsid=$r2[0]>";
 			echo "$r2[1]/$r2[3]/$r2[4]"; 
+			if (getuserright("vm")>=3) 
+				echo "</a>";
+			echo "<br>";
+		}
+		echo "</td>";
+		echo "<td>";
+		$q = "select * from vm_host where cid='$r[0]'";
+		$rr2 = mysql_query($q);
+		while ($r2=mysql_fetch_row($rr2)){
+			if (getuserright("vm")>=3) 
+				echo "<a href=index.php?cmd=vm_host_modi&id=$r[0]&id=$r2[0]>";
+			echo "$r2[1]/$r2[4]/$r2[13]"; 
 			if (getuserright("vm")>=3) 
 				echo "</a>";
 			echo "<br>";
